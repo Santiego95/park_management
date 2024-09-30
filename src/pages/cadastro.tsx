@@ -50,6 +50,7 @@ const Cadastro: React.FC = () => {
               margin="normal"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
             <TextField
               label="Email"
@@ -59,13 +60,17 @@ const Cadastro: React.FC = () => {
               margin="normal"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             <Tooltip
                   title={
                     <>
-                      - Deve ter 8 números <br />
-                      - Deve conter pelo menos uma letra <br />
-                      - Não pode conter caracteres especiais
+                      A senha deve conter:<br/><br/>
+
+                      - 8 caracteres<br/>
+                      - 1 caractere especial<br/>
+                      - 1 número<br/>
+                      - 1 letra maiúscula<br/>
                     </>
                   }
                   placement="right"
@@ -79,6 +84,7 @@ const Cadastro: React.FC = () => {
               margin="normal"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
             </Tooltip>
             <TextField
@@ -89,6 +95,7 @@ const Cadastro: React.FC = () => {
               margin="normal"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
             <Button
               variant="contained"

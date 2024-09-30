@@ -39,6 +39,7 @@ const Login: React.FC = () => {
                     margin="normal"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
                 <TextField
                     label="Senha"
@@ -48,6 +49,7 @@ const Login: React.FC = () => {
                     margin="normal"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
 
                 <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
