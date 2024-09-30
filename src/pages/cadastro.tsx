@@ -7,6 +7,7 @@ import {
   Button,
   Box,
   Paper,
+  Tooltip,
 } from "@mui/material";
 
 const Cadastro: React.FC = () => {
@@ -59,6 +60,17 @@ const Cadastro: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <Tooltip
+                  title={
+                    <>
+                      - Deve ter 8 números <br />
+                      - Deve conter pelo menos uma letra <br />
+                      - Não pode conter caracteres especiais
+                    </>
+                  }
+                  placement="right"
+                  arrow
+                >
             <TextField
               label="Senha"
               type="password"
@@ -68,6 +80,7 @@ const Cadastro: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            </Tooltip>
             <TextField
               label="Confirmar Senha"
               type="password"
