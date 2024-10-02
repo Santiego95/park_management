@@ -8,6 +8,7 @@ interface HeaderProps {
   onCloseMenu: () => void;
 }
 
+
 // Componente Header
 const Header: React.FC<HeaderProps> = ({ onMenuClick, onCloseMenu }) => {
   const theme = useTheme(); // Acesse o tema aqui

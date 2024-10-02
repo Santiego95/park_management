@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Paper, Checkbox, IconButton } from '@mui/material';
+import React, { useState, ChangeEvent } from 'react';
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Paper, Checkbox, IconButton, Container, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from '../shared/components/header';
-
-interface Vehicle {
-  plate: string;
-  type: string;
-  description: string;
-  entry: string;
-}
+import CalcularSaida from '../shared/components/cadastrosaida';  
+import CadastroMensalista from '../shared/components/cadastroMensalista';
+import { Vehicle, PaymentInfo, Mensalista } from "../shared/hooks/types";
 
 const EstacionamentoRotativo: React.FC = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([
@@ -23,10 +19,16 @@ const EstacionamentoRotativo: React.FC = () => {
     entry: "",
   });
 
-  const [selectedVehicles, setSelectedVehicles] = useState<boolean[]>(new Array(vehicles.length).fill(false));
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>({
+    method: "Selecionar",
+    amount: "",
+  });
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [mostrarCadastroMensalista, setMostrarCadastroMensalista] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewVehicle({ ...newVehicle, [name]: value });
   };
@@ -34,23 +36,50 @@ const EstacionamentoRotativo: React.FC = () => {
   const handleAddVehicle = () => {
     setVehicles([...vehicles, { ...newVehicle, entry: new Date().toLocaleTimeString() }]);
     setNewVehicle({ plate: "", type: "", description: "", entry: "" });
-    setSelectedVehicles([...selectedVehicles, false]);
+  };
+
+  const handleCheckboxChange = (vehicle: Vehicle) => {
+    setSelectedVehicle(selectedVehicle?.plate === vehicle.plate ? null : vehicle);
   };
 
   const handleDeleteVehicle = (index: number) => {
     const updatedVehicles = vehicles.filter((_, vehicleIndex) => vehicleIndex !== index);
     setVehicles(updatedVehicles);
-    setSelectedVehicles(selectedVehicles.filter((_, vehicleIndex) => vehicleIndex !== index));
   };
 
-  const handleSelectVehicle = (index: number) => {
-    const updatedSelections = [...selectedVehicles];
-    updatedSelections[index] = !updatedSelections[index];
-    setSelectedVehicles(updatedSelections);
-  };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleOpenModal = () => {
+    if (selectedVehicle) {
+      setModalOpen(true);
+    } else {
+      alert("Selecione um veículo para calcular a saída.");
+    }
+  };
+
+  const handleConfirmExit = () => {
+    setVehicles(vehicles.filter(v => v.plate !== selectedVehicle?.plate));
+    setModalOpen(false);
+    setPaymentInfo({ method: "Selecionar", amount: "" });
+  };
+
+  const handleCancelExit = () => {
+    setModalOpen(false);
+  };
+
+  const handleOpenCadastroMensalista = () => {
+    setMostrarCadastroMensalista(true);
+  };
+
+  const handleConfirmarMensalista = (mensalista: Mensalista) => {
+    console.log("Mensalista cadastrado:", mensalista);
+    setMostrarCadastroMensalista(false);
+  };
+
+  const handleCancelarMensalista = () => {
+    setMostrarCadastroMensalista(false);
   };
 
   const filteredVehicles = vehicles.filter(vehicle =>
@@ -58,8 +87,9 @@ const EstacionamentoRotativo: React.FC = () => {
   );
 
   return (
-    <div style={{ padding: '20px' }}>
+    <Container style={{ padding: '20px' }}>
       <Header onMenuClick={() => {}} onCloseMenu={() => {}} />
+      <Typography variant="h4" gutterBottom>Gestão de Estacionamento</Typography>
 
       <TableContainer component={Paper}>
         <Table>
@@ -120,8 +150,8 @@ const EstacionamentoRotativo: React.FC = () => {
               <TableRow key={index}>
                 <TableCell>
                   <Checkbox
-                    checked={selectedVehicles[index]}
-                    onChange={() => handleSelectVehicle(index)}
+                    checked={selectedVehicle?.plate === vehicle.plate}
+                    onChange={() => handleCheckboxChange(vehicle)}
                   />
                 </TableCell>
                 <TableCell>{vehicle.plate}</TableCell>
@@ -141,12 +171,28 @@ const EstacionamentoRotativo: React.FC = () => {
 
       <footer style={{ marginTop: '20px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <Button variant="contained">Calcular Saída</Button>
-          <Button variant="contained">Cadastro Mensalista</Button>
-          <Button variant="contained">Fechar Caixa</Button>
+          <Button variant="contained" color="primary" onClick={handleOpenModal}>Calcular Saída</Button>
+          <Button variant="contained" onClick={handleOpenCadastroMensalista}>Cadastro Mensalista</Button>
         </div>
       </footer>
-    </div>
+
+      {isModalOpen && selectedVehicle && (
+      <CalcularSaida
+        vehicle={selectedVehicle}
+        paymentInfo={paymentInfo}
+        setPaymentInfo={setPaymentInfo}
+        onConfirm={handleConfirmExit}
+        onCancel={handleCancelExit}
+      />
+      )}
+
+      {mostrarCadastroMensalista && (
+        <CadastroMensalista
+          onConfirmar={handleConfirmarMensalista}
+          onCancelar={handleCancelarMensalista}
+        />
+      )}
+    </Container>
   );
 };
 
