@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Paper, Checkbox, IconButton, Container, Typography } from '@mui/material';
+import { useTheme, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Paper, Checkbox, IconButton, Grid2 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from '../shared/components/header';
 import CalcularSaida from '../shared/components/cadastrosaida';  
@@ -7,6 +7,7 @@ import CadastroMensalista from '../shared/components/cadastroMensalista';
 import { Vehicle, PaymentInfo, Mensalista } from "../shared/hooks/types";
 
 const EstacionamentoRotativo: React.FC = () => {
+  const theme = useTheme(); 
   const [vehicles, setVehicles] = useState<Vehicle[]>([
     { plate: "AAA-1111", type: "Carro", description: "Gol prata", entry: "14:32" },
     { plate: "BBB-2222", type: "Carro", description: "Fiesta prata", entry: "14:56" },
@@ -87,10 +88,8 @@ const EstacionamentoRotativo: React.FC = () => {
   );
 
   return (
-    <Container style={{ padding: '20px' }}>
+    <Grid2 padding="20px">
       <Header onMenuClick={() => {}} onCloseMenu={() => {}} />
-      <Typography variant="h4" gutterBottom>Gestão de Estacionamento</Typography>
-
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -169,11 +168,11 @@ const EstacionamentoRotativo: React.FC = () => {
         </Table>
       </TableContainer>
 
-      <footer style={{ marginTop: '20px' }}>
+      <footer style={{padding: '20px', backgroundColor: theme.palette.primary.main, borderRadius: '0px 0px 10px 10px'  }}>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <Button variant="contained" color="primary" onClick={handleOpenModal}>Calcular Saída</Button>
-          <Button variant="contained" onClick={handleOpenCadastroMensalista}>Cadastro Mensalista</Button>
-        </div>
+          <Button variant="contained" color="secondary" onClick={handleOpenModal}>Calcular Saída</Button>
+          <Button variant="contained" color="secondary" onClick={handleOpenCadastroMensalista}>Cadastro Mensalista</Button>
+        </div> 
       </footer>
 
       {isModalOpen && selectedVehicle && (
@@ -192,7 +191,7 @@ const EstacionamentoRotativo: React.FC = () => {
           onCancelar={handleCancelarMensalista}
         />
       )}
-    </Container>
+    </Grid2>
   );
 };
 

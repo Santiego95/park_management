@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import EstacionamentoRotativo from "../pages/estacionamentoRotativo";
-import { Site } from "../pages/site";
+import Site  from "../pages/site";
 import Login from "../pages/login";
 import Cadastro from "../pages/cadastro";
+import TelaDono from "../pages/telaDono";
 
 
 
@@ -13,7 +14,7 @@ export const AppRoutes = () => {
             <Route path="/login" element = {<Login />} />
             <Route path="/cadastro" element = {<Cadastro />} />
             <Route path="/rotativo" element ={<EstacionamentoRotativo />} />
-
+            <Route path="/telaDono" element ={<TelaDono />} />
             <Route path="*" element = {<Navigate to="paginaInicial" />} />
         </Routes>
     )

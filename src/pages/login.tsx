@@ -63,6 +63,7 @@ const Login: React.FC = () => {
                 </Box>
 
                 <Button
+                    component={Link} to="/telaDono"
                     variant="contained"
                     color="primary"
                     fullWidth

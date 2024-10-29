@@ -1,6 +1,7 @@
 import React, { useState, MouseEvent } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, useTheme } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from "react-router-dom";
 
 // Definindo as propriedades do Header
 interface HeaderProps {
@@ -25,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, onCloseMenu }) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{borderRadius: '10px 10px 0px 0px'}}>
       <Toolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           Park Management
@@ -47,8 +48,8 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, onCloseMenu }) => {
         >
           <MenuItem onClick={handleClose}>Mensalistas</MenuItem>
           <MenuItem onClick={handleClose}>Relatórios</MenuItem>
-          <MenuItem onClick={handleClose}>Estacionamentos</MenuItem>
-          <MenuItem onClick={handleClose}>Sair</MenuItem>
+          <MenuItem onClick={handleClose} component={Link} to="/telaDono">Estacionamentos</MenuItem>
+          <MenuItem onClick={handleClose} component={Link} to="/paginaInicial">Sair</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>

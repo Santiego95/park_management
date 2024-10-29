@@ -24,3 +24,18 @@ export interface Vehicle {
     vaga: string;
     tipo: string;
   }
+
+  export interface Estacionamento {
+    nome: string;
+    endereco: string;
+    vagas: number;
+    confirmado: boolean;
+  }
+
+  export interface Funcionario {
+    nome: string;
+    funcao: string;
+    estacionamento: string;
+    email: string;
+    senha: string;
+  }
