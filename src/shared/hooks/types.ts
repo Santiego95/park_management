@@ -34,7 +34,8 @@ export interface Vehicle {
 
   export interface Funcionario {
     nome: string;
-    funcao: string;
+    //funcao: string;
+    cpf: string;
     estacionamento: string;
     email: string;
     senha: string;

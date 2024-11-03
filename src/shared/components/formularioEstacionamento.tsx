@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, useTheme } from '@mui/material';
+import { estacionamento } from '../../services/cadastro-estacionamento';
 
 interface Estacionamento {
   endereco: string;
@@ -13,27 +14,44 @@ interface FormularioEstacionamentoProps {
   onCancelar: () => void;
 }
 
-
-
 const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onAdicionarEstacionamento, onCancelar }) => {
   const [endereco, setEndereco] = useState<string>('');
   const [nome, setNome] = useState<string>('');
-  const [vagas, setVagas] = useState<number>(0); // Inicializa como 0
+  const [vagas, setVagas] = useState<number>(0);
+  const [usuarioId, setUsuarioId] = useState<string>('');
 
   const theme = useTheme();
-  const handleSubmit = (e: React.FormEvent) => {
+  const userIdString = localStorage.getItem('userId');
+  const userId = userIdString ? parseInt(userIdString) : null;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    const novoEstacionamento: Estacionamento = {
-      endereco,
-      nome,
-      vagas, // Converte para número ou mantém como string vazia
-      confirmado: false, // Definindo o valor inicial como false
-    };
-  
-    onAdicionarEstacionamento(novoEstacionamento);
+
+    if (userId === null) {
+      alert("Usuário não logado. Por favor, faça login novamente.");
+      return;
+    }
+
+    try {
+      const response = await estacionamento(nome, endereco, vagas, userId);
+      const novoEstacionamento: Estacionamento = {
+        endereco: response.endereco,
+        nome: response.estacionamentoNome,
+        vagas: response.totalvagas,
+        confirmado: false, // ou conforme a lógica que você precisa
+      };
+      
+      // Chama a função para adicionar o estacionamento à lista
+      onAdicionarEstacionamento(novoEstacionamento);
+      
+      // Limpa os campos do formulário
+      setEndereco('');
+      setNome('');
+      setVagas(0);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  
 
   return (
     <form onSubmit={handleSubmit} style={{padding: 10, backgroundColor: theme.palette.primary.main}}>

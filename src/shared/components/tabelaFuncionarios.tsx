@@ -5,7 +5,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Funcionario {
   nome: string;
-  funcao: string;
+  //funcao: string;
+  cpf: string;
   estacionamento: string;
   email: string;
 }
@@ -37,7 +38,7 @@ const TabelaFuncionarios: React.FC<TabelaFuncionariosProps> = ({ funcionarios, o
               {funcionarios.map((funcionario, index) => (
                 <TableRow key={index}>
                   <TableCell>{funcionario.nome}</TableCell>
-                  <TableCell>{funcionario.funcao}</TableCell>
+                  <TableCell>{funcionario.cpf}</TableCell>
                   <TableCell>{funcionario.estacionamento}</TableCell>
                   <TableCell>{funcionario.email}</TableCell>
                   <TableCell>

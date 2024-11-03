@@ -9,16 +9,23 @@ import {
   Paper,
   Tooltip,
 } from "@mui/material";
+import { register } from "../services/auth";
 
 const Cadastro: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [cpf, setCpf] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Fazendo Cadastro com:", { name, email, password });
+    try {
+      const response = await register(name, email, cpf, password, confirmPassword);
+      console.log("Usuário cadastrado com sucesso:", response.message);
+    } catch (error: any) {
+      console.error("Erro no cadastro:", error.message);
+    }
   };
 
   return (
@@ -60,6 +67,16 @@ const Cadastro: React.FC = () => {
               margin="normal"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+               <TextField
+              label="CPF"
+              type="cpf"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
               required
             />
             <Tooltip

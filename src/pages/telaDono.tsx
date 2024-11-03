@@ -15,7 +15,8 @@ interface Estacionamento {
 
 interface Funcionario {
   nome: string;
-  funcao: string;
+  //funcao: string;
+  cpf: string;
   estacionamento: string;
   email: string;
 }
