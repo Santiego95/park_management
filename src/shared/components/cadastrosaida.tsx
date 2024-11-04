@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Vehicle, PaymentInfo } from '../hooks/types';
-import { useTheme } from '@mui/material/styles'; // Importando useTheme
+import { useTheme } from '@mui/material/styles';
 
 interface CalcularSaidaProps {
   vehicle: Vehicle | null; // Permitir que o veículo seja null
