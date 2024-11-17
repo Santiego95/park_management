@@ -16,7 +16,6 @@ interface FormularioFuncionarioProps {
 
 const FormularioFuncionario: React.FC<FormularioFuncionarioProps> = ({ onAdicionarFuncionario, onCancelar }) => {
   const [nome, setNome] = useState('');
-  //const [funcao, setFuncao] = useState('');
   const [cpf, setCpf] = useState('');
   const [estacionamento, setEstacionamento] = useState('');
   const [email, setEmail] = useState('');
@@ -26,12 +25,12 @@ const FormularioFuncionario: React.FC<FormularioFuncionarioProps> = ({ onAdicion
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await funcionarioCadastro(nome, email, cpf, senha, confirmaSenha);
+      const response = await funcionarioCadastro(nome, email, estacionamento, cpf, senha, confirmaSenha);
       
          const novoFuncionario = {
             nome: response.nome,
             cpf: response.cpf,
-            estacionamento,
+            estacionamento: response.estacionamento,
             email: response.email,
             senha,
             confirmaSenha,
@@ -67,18 +66,6 @@ const FormularioFuncionario: React.FC<FormularioFuncionarioProps> = ({ onAdicion
           }}
           required
         />
-        {/* <TextField
-          label="Função"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={funcao}
-          onChange={(e) => setFuncao(e.target.value)}
-          InputProps={{
-            style: { backgroundColor: '#ffffff', color: '#000000' },
-          }}
-          required
-        /> */}
           <TextField
           label="CPF"
           variant="outlined"

@@ -8,6 +8,7 @@ import {
   Box,
   Paper,
   Tooltip,
+  Alert,
 } from "@mui/material";
 import { register } from "../services/auth";
 
@@ -17,22 +18,31 @@ const Cadastro: React.FC = () => {
   const [cpf, setCpf] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+
     try {
       const response = await register(name, email, cpf, password, confirmPassword);
       console.log("Usuário cadastrado com sucesso:", response.message);
+
+      setName("");
+      setEmail("");
+      setCpf("");
+      setPassword("");
+      setConfirmPassword("");
     } catch (error: any) {
-      console.error("Erro no cadastro:", error.message);
+      setErrorMessage("Erro no cadastro. Verifique os dados e tente novamente.");
     }
   };
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" height="100vh" style={{
         backgroundImage: `url(${fundo})`,
-        backgroundSize: 'cover', // Para cobrir toda a área
-        backgroundPosition: 'center', // Para centralizar a imagem
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}>
       <Paper style={{ display: 'flex', justifyContent: 'center' }}>
         <Paper 
@@ -69,7 +79,7 @@ const Cadastro: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-               <TextField
+            <TextField
               label="CPF"
               type="cpf"
               variant="outlined"
@@ -80,29 +90,28 @@ const Cadastro: React.FC = () => {
               required
             />
             <Tooltip
-                  title={
-                    <>
-                      A senha deve conter:<br/><br/>
-
-                      - 8 caracteres<br/>
-                      - 1 caractere especial<br/>
-                      - 1 número<br/>
-                      - 1 letra maiúscula<br/>
-                    </>
-                  }
-                  placement="right"
-                  arrow
-                >
-            <TextField
-              label="Senha"
-              type="password"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+              title={
+                <>
+                  A senha deve conter:<br/><br/>
+                  - 8 caracteres<br/>
+                  - 1 caractere especial<br/>
+                  - 1 número<br/>
+                  - 1 letra maiúscula<br/>
+                </>
+              }
+              placement="right"
+              arrow
+            >
+              <TextField
+                label="Senha"
+                type="password"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </Tooltip>
             <TextField
               label="Confirmar Senha"
@@ -123,6 +132,11 @@ const Cadastro: React.FC = () => {
             >
               Confirmar
             </Button>
+            {errorMessage && (
+              <Alert severity="error" style={{ marginTop: '20px' }}>
+                {errorMessage}
+              </Alert>
+            )}
           </form>
         </Paper>
       </Paper>

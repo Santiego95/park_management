@@ -21,8 +21,9 @@ export interface Vehicle {
     placa: string;
     descricao: string;
     whatsapp: string;
-    vaga: string;
+    vagas: string;
     tipo: string;
+    email: string;
   }
 
   export interface Estacionamento {
@@ -34,7 +35,6 @@ export interface Vehicle {
 
   export interface Funcionario {
     nome: string;
-    //funcao: string;
     cpf: string;
     estacionamento: string;
     email: string;

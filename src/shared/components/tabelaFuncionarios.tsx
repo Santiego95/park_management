@@ -28,7 +28,7 @@ const TabelaFuncionarios: React.FC<TabelaFuncionariosProps> = ({ funcionarios, o
             <TableHead>
               <TableRow>
                 <TableCell>Nome</TableCell>
-                <TableCell>Função</TableCell>
+                <TableCell>CPF</TableCell>
                 <TableCell>Estacionamento</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Ações</TableCell> {/* Coluna para ações */}

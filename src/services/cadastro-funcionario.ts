@@ -4,6 +4,7 @@ interface FuncionarioResponse {
     nome: string;
     cpf: string;
     email: string;
+    estacionamento: string;
     senha: string,
     confirmaSenha: string,
 }
@@ -15,6 +16,7 @@ const api = axios.create({
 export const funcionarioCadastro = async (
     nome: string,
     email: string,
+    estacionamento: string,
     cpf: string,
     senha: string,
     confirmaSenha: string
@@ -23,6 +25,7 @@ export const funcionarioCadastro = async (
       const response = await api.post<FuncionarioResponse>('/usuarios/funcionario', {
         nome,
         email,
+        estacionamento,
         cpf,
         senha,
         confirmaSenha,
