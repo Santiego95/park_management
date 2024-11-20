@@ -5,6 +5,7 @@ import Header from '../shared/components/header';
 import CalcularSaida from '../shared/components/cadastrosaida';  
 import CadastroMensalista from '../shared/components/cadastroMensalista';
 import { Vehicle, PaymentInfo, Mensalista } from "../shared/hooks/types";
+import { cadastrarVeiculo } from '../services/cadastrar-veiculos';
 
 const EstacionamentoRotativo: React.FC = () => {
   const theme = useTheme(); 
@@ -34,10 +35,32 @@ const EstacionamentoRotativo: React.FC = () => {
     setNewVehicle({ ...newVehicle, [name]: value });
   };
 
-  const handleAddVehicle = () => {
-    setVehicles([...vehicles, { ...newVehicle, entry: new Date().toLocaleTimeString() }]);
-    setNewVehicle({ plate: "", type: "", description: "", entry: "" });
+  const handleAddVehicle = async () => {
+    try {
+      // Fazendo a requisição para o back-end com os dados necessários
+      const response = await cadastrarVeiculo(
+        newVehicle.plate,        // Mapeado para 'placa'
+        newVehicle.type,         // Mapeado para 'classificacao'
+        newVehicle.description,
+      );
+  
+      setVehicles([...vehicles, { 
+        plate: response.placa, 
+        type: response.classificacao, 
+        description: response.descricao, 
+        entry: new Date().toLocaleTimeString() 
+      }]);
+  
+      // Resetando o formulário
+      setNewVehicle({ plate: "", type: "", description: "", entry: "" });
+  
+      alert("Veículo cadastrado com sucesso!");
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao cadastrar o veículo. Tente novamente.");
+    }
   };
+  
 
   const handleCheckboxChange = (vehicle: Vehicle) => {
     setSelectedVehicle(selectedVehicle?.plate === vehicle.plate ? null : vehicle);
@@ -84,7 +107,7 @@ const EstacionamentoRotativo: React.FC = () => {
   };
 
   const filteredVehicles = vehicles.filter(vehicle =>
-    vehicle.plate.toLowerCase().includes(searchTerm.toLowerCase())
+    vehicle.plate?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

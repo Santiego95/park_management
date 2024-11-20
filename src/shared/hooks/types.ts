@@ -2,10 +2,10 @@
 
 // Definindo o tipo para veículos
 export interface Vehicle {
-    plate: string;
-    type: string;
-    description: string;
-    entry: string;
+    plate?: string;
+    type?: string;
+    description?: string;
+    entry?: string;
   }
   
   // Definindo o tipo para informações de pagamento
