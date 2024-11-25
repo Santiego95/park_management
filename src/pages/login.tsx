@@ -11,6 +11,7 @@ import {
   Paper,
 } from "@mui/material";
 import { login } from '../services/auth';
+import { toast } from 'react-toastify';
 
 
 const Login: React.FC = () => {
@@ -22,14 +23,14 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      console.log('Login bem-sucedido:', data);
+      toast.success(`Login bem-sucedido: ${data}`);
 
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('userId', data.id.toString());
       navigate(`/telaDono/${data.id}`);
     } catch (error: any) {
       console.error(error.message);
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 

@@ -11,6 +11,7 @@ import {
   Alert,
 } from "@mui/material";
 import { register } from "../services/auth";
+import { toast } from 'react-toastify';
 
 const Cadastro: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -26,7 +27,7 @@ const Cadastro: React.FC = () => {
 
     try {
       const response = await register(name, email, cpf, password, confirmPassword);
-      console.log("Usuário cadastrado com sucesso:", response.message);
+      toast.success(`Usuário cadastrado com sucesso: ${response.message}`);
 
       setName("");
       setEmail("");
@@ -34,7 +35,7 @@ const Cadastro: React.FC = () => {
       setPassword("");
       setConfirmPassword("");
     } catch (error: any) {
-      setErrorMessage("Erro no cadastro. Verifique os dados e tente novamente.");
+      toast.error("Erro no cadastro. Verifique os dados e tente novamente.");
     }
   };
 
@@ -47,7 +48,7 @@ const Cadastro: React.FC = () => {
       <Paper style={{ display: 'flex', justifyContent: 'center' }}>
         <Paper 
           elevation={3} 
-          style={{ paddingTop: '20px', maxWidth: '400px', width: '100%', backgroundColor: '#FF740F', color: '#ffffff', height: '414px' }}
+          style={{ paddingTop: '40px', maxWidth: '400px', width: '100%', backgroundColor: '#FF740F', color: '#ffffff', height: '480px' }}
         >
           <Box textAlign="center" marginBottom="20px" height="100%">
             <Typography marginTop="60px" variant="h4">Bem Vindo</Typography>

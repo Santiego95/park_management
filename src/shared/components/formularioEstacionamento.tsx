@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, useTheme } from '@mui/material';
 import { estacionamento } from '../../services/cadastro-estacionamento';
+import { toast } from 'react-toastify';
 
 interface Estacionamento {
   endereco: string;
   nome: string;
   vagas: number;
+  valorHora: number;
+  valorMaisHoras: number;
   confirmado: boolean; // O tipo 'vagas' é um número ou uma string vazia.
 }
 
@@ -18,6 +21,8 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
   const [endereco, setEndereco] = useState<string>('');
   const [nome, setNome] = useState<string>('');
   const [vagas, setVagas] = useState<number>(0);
+  const [valorHora, setValorHora] = useState<number>(0);
+  const [valorMaisHoras, setValorMaisHoras] = useState<number>(0);
   const [usuarioId, setUsuarioId] = useState<string>('');
 
   const theme = useTheme();
@@ -28,7 +33,7 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
     e.preventDefault();
 
     if (userId === null) {
-      alert("Usuário não logado. Por favor, faça login novamente.");
+      toast.success("Usuário não logado. Por favor, faça login novamente.");
       return;
     }
 
@@ -48,6 +53,8 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
       setEndereco('');
       setNome('');
       setVagas(0);
+      setValorHora(0);
+      setValorMaisHoras(0);
     } catch (error) {
       console.error(error);
     }
@@ -72,6 +79,30 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
           label="Nome"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
+          InputProps={{
+            style: { backgroundColor: '#ffffff', color: '#000000' },
+          }}
+          margin="normal"
+          required
+        />
+        <TextField
+          fullWidth
+          label="Primeira Hora"
+          type="number"
+          value={valorHora}
+          onChange={(e) => setVagas(e.target.value ? parseInt(e.target.value) : NaN)}
+          InputProps={{
+            style: { backgroundColor: '#ffffff', color: '#000000' },
+          }}
+          margin="normal"
+          required
+        />
+        <TextField
+          fullWidth
+          label="Demais Horas"
+          type="number"
+          value={valorMaisHoras}
+          onChange={(e) => setVagas(e.target.value ? parseInt(e.target.value) : NaN)}
           InputProps={{
             style: { backgroundColor: '#ffffff', color: '#000000' },
           }}

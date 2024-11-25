@@ -18,7 +18,7 @@ export const login = async (email: string, senha: string): Promise<LoginResponse
     const response = await api.post<LoginResponse>('/auth/login', { email, senha });
     return response.data;
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Erro no login');
+    throw new Error(error.response?.data?.message || 'Email ou Senha Incorreto');
   }
 };
 
