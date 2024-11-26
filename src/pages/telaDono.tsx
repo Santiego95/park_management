@@ -10,6 +10,8 @@ interface Estacionamento {
   nome: string;
   endereco: string;
   vagas: number;
+  valorHora: number; 
+  valorMaisHoras: number;
   confirmado: boolean;
 }
 

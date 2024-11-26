@@ -5,6 +5,8 @@ interface EstacionamentoResponse {
   endereco: string;
   totalvagas: number;
   usuarioId: number;
+  valorHora: number;
+  valorMaisHoras: number;
 }
 
 const api = axios.create({
@@ -15,7 +17,9 @@ export const estacionamento = async (
     estacionamentoNome: string, 
     endereco: string, 
     totalvagas: number, 
-    usuarioId: number
+    usuarioId: number,
+    valorHora: number,
+    valorMaisHoras: number
 ): Promise<EstacionamentoResponse> => {
     try {
       const response = await api.post<EstacionamentoResponse>('/estacionamento', { 
@@ -23,6 +27,8 @@ export const estacionamento = async (
         endereco,
         totalvagas,
         usuarioId,
+        valorHora,
+        valorMaisHoras
     });
       return response.data;
     } catch (error: any) {

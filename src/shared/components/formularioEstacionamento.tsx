@@ -38,11 +38,13 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
     }
 
     try {
-      const response = await estacionamento(nome, endereco, vagas, userId);
+      const response = await estacionamento(nome, endereco, vagas, userId, valorHora, valorMaisHoras);
       const novoEstacionamento: Estacionamento = {
         endereco: response.endereco,
         nome: response.estacionamentoNome,
         vagas: response.totalvagas,
+        valorHora: response.valorHora,
+        valorMaisHoras: response.valorMaisHoras,
         confirmado: false, // ou conforme a lógica que você precisa
       };
       
@@ -85,7 +87,7 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
           margin="normal"
           required
         />
-        <TextField
+        {/* <TextField
           fullWidth
           label="Primeira Hora"
           type="number"
@@ -103,6 +105,30 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
           type="number"
           value={valorMaisHoras}
           onChange={(e) => setVagas(e.target.value ? parseInt(e.target.value) : NaN)}
+          InputProps={{
+            style: { backgroundColor: '#ffffff', color: '#000000' },
+          }}
+          margin="normal"
+          required
+        /> */}
+        <TextField
+          fullWidth
+          label="Primeira Hora"
+          type="number"
+          value={valorHora}
+          onChange={(e) => setValorHora(e.target.value ? parseFloat(e.target.value) : 0)}
+          InputProps={{
+            style: { backgroundColor: '#ffffff', color: '#000000' },
+          }}
+          margin="normal"
+          required
+        />
+        <TextField
+          fullWidth
+          label="Demais Horas"
+          type="number"
+          value={valorMaisHoras}
+          onChange={(e) => setValorMaisHoras(e.target.value ? parseFloat(e.target.value) : 0)}
           InputProps={{
             style: { backgroundColor: '#ffffff', color: '#000000' },
           }}
