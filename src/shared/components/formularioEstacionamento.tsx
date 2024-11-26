@@ -87,30 +87,6 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
           margin="normal"
           required
         />
-        {/* <TextField
-          fullWidth
-          label="Primeira Hora"
-          type="number"
-          value={valorHora}
-          onChange={(e) => setVagas(e.target.value ? parseInt(e.target.value) : NaN)}
-          InputProps={{
-            style: { backgroundColor: '#ffffff', color: '#000000' },
-          }}
-          margin="normal"
-          required
-        />
-        <TextField
-          fullWidth
-          label="Demais Horas"
-          type="number"
-          value={valorMaisHoras}
-          onChange={(e) => setVagas(e.target.value ? parseInt(e.target.value) : NaN)}
-          InputProps={{
-            style: { backgroundColor: '#ffffff', color: '#000000' },
-          }}
-          margin="normal"
-          required
-        /> */}
         <TextField
           fullWidth
           label="Primeira Hora"

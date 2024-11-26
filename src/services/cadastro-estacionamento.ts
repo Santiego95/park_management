@@ -35,3 +35,13 @@ export const estacionamento = async (
       throw new Error(error.response?.data?.message || 'Erro no cadastro do estacionamento');
     }
   };
+
+  export const buscarEstacionamentos = async (usuarioId: number): Promise<EstacionamentoResponse[]> => {
+    try {
+      const response = await api.get<EstacionamentoResponse[]>(`/estacionamento/getall/${usuarioId}`);
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || 'Erro ao buscar estacionamentos');
+    }
+  };
+  
