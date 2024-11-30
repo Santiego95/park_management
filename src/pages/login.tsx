@@ -23,7 +23,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      toast.success(`Login bem-sucedido: ${data}`);
+      toast.success(`Login bem-sucedido`);
 
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('userId', data.id.toString());

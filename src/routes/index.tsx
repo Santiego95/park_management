@@ -4,6 +4,7 @@ import Site  from "../pages/site";
 import Login from "../pages/login";
 import Cadastro from "../pages/cadastro";
 import TelaDono from "../pages/telaDono";
+import Relatorio from "../pages/relatorio";
 
 export const AppRoutes = () => {
     return(
@@ -14,6 +15,7 @@ export const AppRoutes = () => {
             <Route path="/rotativo" element ={<EstacionamentoRotativo />} />
             <Route path="/telaDono/:id" element ={<TelaDono />} />
             <Route path="*" element = {<Navigate to="paginaInicial" />} />
+            <Route path="/relatorio" element = {<Relatorio />}/>
         </Routes>
     )       
 };

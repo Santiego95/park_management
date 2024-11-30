@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 interface EstacionamentoResponse {
+  id: number;
   estacionamentoNome: string;
   endereco: string;
   totalvagas: number;

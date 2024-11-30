@@ -47,8 +47,10 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
         valorMaisHoras: response.valorMaisHoras,
         confirmado: false, // ou conforme a lógica que você precisa
       };
-      
-      // Chama a função para adicionar o estacionamento à lista
+
+      const see = localStorage.setItem('estacionamentoId', response.id.toString());
+      console.log('see: ', see);
+
       onAdicionarEstacionamento(novoEstacionamento);
       
       // Limpa os campos do formulário
