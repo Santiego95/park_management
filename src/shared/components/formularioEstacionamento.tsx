@@ -48,12 +48,10 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
         confirmado: false, // ou conforme a lógica que você precisa
       };
 
-      const see = localStorage.setItem('estacionamentoId', response.id.toString());
-      console.log('see: ', see);
+      localStorage.setItem('estacionamentoId', response.id.toString());
 
       onAdicionarEstacionamento(novoEstacionamento);
       
-      // Limpa os campos do formulário
       setEndereco('');
       setNome('');
       setVagas(0);

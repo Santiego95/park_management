@@ -74,9 +74,9 @@ const CalcularSaida: React.FC<CalcularSaidaProps> = ({ vehicle, paymentInfo, set
               }}
             >
               <MenuItem value="Selecionar">Selecionar</MenuItem>
-              <MenuItem value="PIX" color='#ffffff'>PIX</MenuItem>
-              <MenuItem value="Crédito" color='#ffffff'>Crédito</MenuItem>
-              <MenuItem value="Débito" color='#ffffff'>Débito</MenuItem>
+              <MenuItem value="Pix" color='#ffffff'>Pix</MenuItem>
+              <MenuItem value="Crédito" color='#ffffff'>Cartão de Crédito</MenuItem>
+              <MenuItem value="Débito" color='#ffffff'>Cartão de Débito</MenuItem>
               <MenuItem value="Dinheiro" color='#ffffff'>Dinheiro</MenuItem>
             </Select>
           </FormControl>
