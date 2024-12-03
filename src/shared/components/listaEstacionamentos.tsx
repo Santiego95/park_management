@@ -1,7 +1,7 @@
-// import React, { useEffect, useState } from 'react';
-// import { Card, CardContent, Typography, Grid, Box, Button, useTheme } from '@mui/material';
-// import { Link } from "react-router-dom";
-// import { buscarEstacionamentos } from '../../services/cadastro-estacionamento';
+// import React from 'react';
+// import { Box, Typography, Grid, Card, CardContent, Button } from '@mui/material';
+// import { Link } from 'react-router-dom';
+// import { useTheme } from '@mui/material/styles';
 
 // interface Estacionamento {
 //   nome: string;
@@ -12,38 +12,13 @@
 //   confirmado: boolean;
 // }
 
-// const ListaEstacionamentos: React.FC = () => {
-//   const [estacionamentos, setEstacionamentos] = useState<Estacionamento[]>([]);
+// interface ListaEstacionamentosProps {
+//   estacionamentos: Estacionamento[];
+//   onConfirmar: (index: number) => void;
+// }
+
+// const ListaEstacionamentos: React.FC<ListaEstacionamentosProps> = ({ estacionamentos, onConfirmar }) => {
 //   const theme = useTheme();
-
-//   useEffect(() => {
-//     const carregarEstacionamentos = async () => {
-//       try {
-//         const usuarioId = 1; // ID do usuário (você pode pegar de um contexto ou autenticação)
-//         const dados = await buscarEstacionamentos(usuarioId);
-//         setEstacionamentos(
-//           dados.map(estacionamento => ({
-//             nome: estacionamento.estacionamentoNome,
-//             endereco: estacionamento.endereco,
-//             vagas: estacionamento.totalvagas,
-//             valorHora: estacionamento.valorHora,
-//             valorMaisHoras: estacionamento.valorMaisHoras,
-//             confirmado: false, // Controle inicial do estado "confirmado"
-//           })),
-//         );
-//       } catch (error) {
-//         console.error('Erro ao carregar estacionamentos:', error);
-//       }
-//     };
-
-//     carregarEstacionamentos();
-//   }, []);
-
-//   const handleConfirmar = (index: number) => {
-//     setEstacionamentos(prev =>
-//       prev.map((item, i) => (i === index ? { ...item, confirmado: true } : item)),
-//     );
-//   };
 
 //   return (
 //     <Box sx={{ backgroundColor: '#ffffff', padding: '10px', height: '70vh' }}>
@@ -67,7 +42,7 @@
 //                       to="/rotativo"
 //                       variant="contained"
 //                       color="secondary"
-//                       onClick={() => handleConfirmar(index)}
+//                       onClick={() => onConfirmar(index)}
 //                       sx={{ marginTop: 2 }}
 //                     >
 //                       Confirmar
@@ -89,12 +64,14 @@
 
 // export default ListaEstacionamentos;
 
+
+//---------------------------------------------------------------
+
 import React from 'react';
 import { Box, Typography, Grid, Card, CardContent, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 
-// Definição do tipo 'Estacionamento'
 interface Estacionamento {
   nome: string;
   endereco: string;
@@ -104,14 +81,24 @@ interface Estacionamento {
   confirmado: boolean;
 }
 
-// Props para o componente 'ListaEstacionamentos'
 interface ListaEstacionamentosProps {
-  estacionamentos: Estacionamento[]; // Agora, 'estacionamentos' é passado como uma prop
-  onConfirmar: (index: number) => void; // Função para confirmar um estacionamento
+  estacionamentos: Estacionamento[];
+  onConfirmar: (index: number) => void;
 }
 
 const ListaEstacionamentos: React.FC<ListaEstacionamentosProps> = ({ estacionamentos, onConfirmar }) => {
   const theme = useTheme();
+  const navigate = useNavigate(); // Hook para navegação programática
+
+  const handleConfirmar = (index: number) => {
+    const estacionamentoId = localStorage.getItem('estacionamentoId'); // Recupera o ID do localStorage
+    if (estacionamentoId) {
+      onConfirmar(index); // Chama a função de confirmação
+      navigate(`/rotativo/${estacionamentoId}`); // Redireciona para a página com o ID
+    } else {
+      console.error('ID do estacionamento não encontrado no localStorage');
+    }
+  };
 
   return (
     <Box sx={{ backgroundColor: '#ffffff', padding: '10px', height: '70vh' }}>
@@ -131,11 +118,9 @@ const ListaEstacionamentos: React.FC<ListaEstacionamentosProps> = ({ estacioname
                   <Typography variant="body1">Vagas: {estacionamento.vagas}</Typography>
                   {!estacionamento.confirmado ? (
                     <Button
-                      component={Link}
-                      to="/rotativo"
                       variant="contained"
                       color="secondary"
-                      onClick={() => onConfirmar(index)}
+                      onClick={() => handleConfirmar(index)} // Usa a função com redirecionamento dinâmico
                       sx={{ marginTop: 2 }}
                     >
                       Confirmar
@@ -156,5 +141,3 @@ const ListaEstacionamentos: React.FC<ListaEstacionamentosProps> = ({ estacioname
 };
 
 export default ListaEstacionamentos;
-
-

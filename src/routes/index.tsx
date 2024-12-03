@@ -12,7 +12,7 @@ export const AppRoutes = () => {
             <Route path="/paginaInicial" element ={<Site />} />
             <Route path="/login" element = {<Login />} />
             <Route path="/cadastro" element = {<Cadastro />} />
-            <Route path="/rotativo" element ={<EstacionamentoRotativo />} />
+            <Route path="/rotativo/:id" element ={<EstacionamentoRotativo />} />
             <Route path="/telaDono/:id" element ={<TelaDono />} />
             <Route path="*" element = {<Navigate to="paginaInicial" />} />
             <Route path="/relatorio" element = {<Relatorio />}/>
