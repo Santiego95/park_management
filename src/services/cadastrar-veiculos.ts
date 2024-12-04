@@ -36,4 +36,13 @@ export const cadastrarVeiculo = async (
   }
 };
 
+export const buscarVeiculos = async (estacionamentoId: number): Promise<CadastrarVeiculoResponse[]> => {
+  try {
+    const response = await api.get<CadastrarVeiculoResponse[]>(`/veiculos/getall/${estacionamentoId}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || 'Erro ao buscar veiculos');
+  }
+};
+
 export default api;
