@@ -207,6 +207,7 @@ const TelaDono = () => {
       setEstacionamentos(prev =>
         prev.map((item, i) => (i === index ? { ...item, confirmado: true } : item))
       );
+      localStorage.setItem('estacionamentoId', estacionamento.id.toString());
       navigate(`/rotativo/${estacionamento.id}`);
     } else {
       console.error('ID do estacionamento não encontrado!');

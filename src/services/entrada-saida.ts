@@ -5,15 +5,15 @@ const api = axios.create({
 });
 
 export interface EntradaSaidaResponse {
-  veiculoId: string,
-  estacionamentoId: string,
-  horarioSaida: string,
-  valorPago: string,
-  formaPagamento: string,
-  vaga: string,
-  dataPagamento: string,
-  tipoCliente: string,
-  cpfMensalista: string,
+  veiculoId?: string,
+  estacionamentoId?: string,
+  horarioSaida?: string,
+  valorPago?: string,
+  formaPagamento?: string,
+  vaga?: string,
+  dataPagamento?: string,
+  tipoCliente?: string,
+  cpfMensalista?: string,
 }
 
 export const registrarEntradaSaida = async (
