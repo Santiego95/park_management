@@ -37,6 +37,16 @@ export const estacionamento = async (
     }
   };
 
+  export const buscarEstacionamentoPorId = async (id: number): Promise<EstacionamentoResponse> => {
+    try {
+      const response = await api.get<EstacionamentoResponse>(`/estacionamento/${id}`);
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || 'Erro ao buscar estacionamento pelo ID');
+    }
+  };
+  
+
   export const buscarEstacionamentos = async (usuarioId: number): Promise<EstacionamentoResponse[]> => {
     try {
       const response = await api.get<EstacionamentoResponse[]>(`/estacionamento/getall/${usuarioId}`);

@@ -5,8 +5,9 @@ import Header from '../shared/components/header';
 import CalcularSaida from '../shared/components/cadastrosaida';  
 import CadastroMensalista from '../shared/components/cadastroMensalista';
 import { Vehicle, PaymentInfo, Mensalista } from "../shared/hooks/types";
-import { cadastrarVeiculo, buscarVeiculos } from '../services/cadastrar-veiculos';
+import { cadastrarVeiculo, buscarVeiculos, buscarVeiculoPorId } from '../services/cadastrar-veiculos';
 import { useParams } from 'react-router-dom';
+import { registrarEntradaSaida } from '../services/entrada-saida';
 
 // const EstacionamentoRotativo: React.FC = () => {
 //   const theme = useTheme(); 
@@ -238,11 +239,8 @@ const EstacionamentoRotativo: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [mostrarCadastroMensalista, setMostrarCadastroMensalista] = useState(false);
 
-  // const estacionamentoIdNumber = estacionamentoId ? parseInt(estacionamentoId, 10) : NaN;
   const  estacionamentoId  = localStorage.getItem('estacionamentoId');;
   const estacionamentoIdNumber = estacionamentoId ? parseInt(estacionamentoId) : NaN;
-  console.log('Estacionamento ID:', estacionamentoId);
-
 
 
   useEffect(() => {
@@ -251,7 +249,6 @@ const EstacionamentoRotativo: React.FC = () => {
       return;
     }
 
-    // Buscar veículos ao carregar o componente
     const fetchVehicles = async () => {
       try {
         const data = await buscarVeiculos(estacionamentoIdNumber);
@@ -260,7 +257,7 @@ const EstacionamentoRotativo: React.FC = () => {
             plate: vehicle.placa || "",
             type: vehicle.classificacao || "",
             description: vehicle.descricao || "",
-            entry: new Date().toLocaleTimeString(), // Ajuste conforme a lógica de entrada
+            entry: new Date().toLocaleTimeString(),
           }))
         );
       } catch (error) {
@@ -293,9 +290,16 @@ const EstacionamentoRotativo: React.FC = () => {
         estacionamentoIdNumber
       );
 
+      const vehicleId = response.id;
+      if (!vehicleId) {
+        alert('Erro: O ID do veículo não foi retornado pelo backend.');
+        return;
+      }
+
       setVehicles([
         ...vehicles,
         {
+          id: vehicleId,
           plate: response.placa || "",
           type: response.classificacao || "",
           description: response.descricao || "",
@@ -324,19 +328,65 @@ const EstacionamentoRotativo: React.FC = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleOpenModal = () => {
+  // const handleOpenModal = () => {
+  //   if (selectedVehicle) {
+  //     setModalOpen(true);
+  //   } else {
+  //     alert("Selecione um veículo para calcular a saída.");
+  //   }
+  // };
+  const handleOpenModal = async () => {
     if (selectedVehicle) {
-      setModalOpen(true);
+      try {
+        const vehicleData = await buscarVeiculoPorId(Number(selectedVehicle.id));
+        setSelectedVehicle({
+          ...selectedVehicle,
+          ...vehicleData,
+        });
+        setModalOpen(true);
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao buscar dados do veículo selecionado.");
+      }
     } else {
       alert("Selecione um veículo para calcular a saída.");
     }
   };
+  
 
-  const handleConfirmExit = () => {
-    setVehicles(vehicles.filter((v) => v.plate !== selectedVehicle?.plate));
-    setModalOpen(false);
-    setPaymentInfo({ method: "Selecionar", amount: "" });
+  // const handleConfirmExit = () => {
+  //   setVehicles(vehicles.filter((v) => v.plate !== selectedVehicle?.plate));
+  //   setModalOpen(false);
+  //   setPaymentInfo({ method: "Selecionar", amount: "" });
+  // };
+  const handleConfirmExit = async () => {
+    if (!selectedVehicle || isNaN(estacionamentoIdNumber)) {
+      alert("Veículo ou ID do estacionamento inválidos.");
+      return;
+    }
+  
+    try {
+      await registrarEntradaSaida(
+        String(selectedVehicle.id),
+        String(estacionamentoIdNumber),
+        new Date().toISOString(),
+        paymentInfo.amount,
+        paymentInfo.method,
+        // "vaga1",
+        new Date().toISOString(),
+        // "rotativo",
+        // ""
+      );
+      setVehicles(vehicles.filter((v) => v.plate !== selectedVehicle.plate));
+      setModalOpen(false);
+      setPaymentInfo({ method: "Selecionar", amount: "" });
+      alert("Saída registrada com sucesso.");
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao registrar a saída. Tente novamente.");
+    }
   };
+  
 
   const handleCancelExit = () => {
     setModalOpen(false);

@@ -5,6 +5,7 @@ const api = axios.create({
 });
 
 export interface EntradaSaidaResponse {
+  id?: number,
   veiculoId?: string,
   estacionamentoId?: string,
   horarioSaida?: string,
@@ -17,15 +18,15 @@ export interface EntradaSaidaResponse {
 }
 
 export const registrarEntradaSaida = async (
-  veiculoId: string,
-  estacionamentoId: string,
-  horarioSaida: string,
-  valorPago: string,
-  formaPagamento: string,
-  vaga: string,
-  dataPagamento: string,
-  tipoCliente: string,
-  cpfMensalista: string,
+  veiculoId?: string,
+  estacionamentoId?: string,
+  horarioSaida?: string,
+  valorPago?: string,
+  formaPagamento?: string,
+  vaga?: string,
+  dataPagamento?: string,
+  tipoCliente?: string,
+  cpfMensalista?: string,
 ): Promise<EntradaSaidaResponse> => {
   try {
     const response = await api.post<EntradaSaidaResponse>('/entradaSaida', {

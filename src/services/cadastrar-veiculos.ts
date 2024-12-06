@@ -5,6 +5,7 @@ const api = axios.create({
 });
 
 export interface CadastrarVeiculoResponse {
+  id?: number,
   placa?: string,
   classificacao?: string,
   descricao?: string,
@@ -35,6 +36,16 @@ export const cadastrarVeiculo = async (
     throw new Error(error.response?.data?.message || 'Erro no cadastro de veículo');
   }
 };
+
+export const buscarVeiculoPorId = async (id: number): Promise<CadastrarVeiculoResponse> => {
+  try {
+    const response = await api.get<CadastrarVeiculoResponse>(`/veiculos/${id}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || 'Erro ao buscar veículo pelo ID');
+  }
+};
+
 
 export const buscarVeiculos = async (estacionamentoId: number): Promise<CadastrarVeiculoResponse[]> => {
   try {
