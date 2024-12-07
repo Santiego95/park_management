@@ -46,4 +46,19 @@ export const registrarEntradaSaida = async (
   }
 };
 
+export const calcularSaida = async (
+  veiculoId?: string,
+  estacionamentoId?: string,
+) => {
+  try {
+    const response = await api.post('/entradaSaida/calcular-saida', {
+      veiculoId,
+      estacionamentoId,
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || 'Erro ao calcular valor da saída');
+  }
+};
+
 export default api;

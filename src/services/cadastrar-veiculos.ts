@@ -12,6 +12,7 @@ export interface CadastrarVeiculoResponse {
   cpfMensalista: string,
   vaga?: string,
   estacionamentoId?: number,
+  createdAt?: Date,
 }
 
 export const cadastrarVeiculo = async (

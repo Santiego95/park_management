@@ -18,7 +18,7 @@ import { Vehicle, PaymentInfo } from '../hooks/types';
 import { useTheme } from '@mui/material/styles';
 
 interface CalcularSaidaProps {
-  vehicle: Vehicle | null; // Permitir que o veículo seja null
+  vehicle: Vehicle | null;
   paymentInfo: PaymentInfo;
   setPaymentInfo: React.Dispatch<React.SetStateAction<PaymentInfo>>;
   onConfirm: () => void;
@@ -26,8 +26,18 @@ interface CalcularSaidaProps {
 }
 
 const CalcularSaida: React.FC<CalcularSaidaProps> = ({ vehicle, paymentInfo, setPaymentInfo, onConfirm, onCancel }) => {
-  const theme = useTheme(); // Usar useTheme para acessar o tema
-  const [openSnackbar, setOpenSnackbar] = React.useState(false); // Estado para controle da Snackbar
+  const theme = useTheme();
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+  const  estacionamentoId  = localStorage.getItem('estacionamentoId');
+  const estacionamentoIdNumber = estacionamentoId ? parseInt(estacionamentoId) : NaN;
+    console.log();
+    console.log('estacionamentoIdNumber: ', estacionamentoIdNumber);
+
+  const storedVehicleId = localStorage.getItem('vehicleId');
+  const vehicleIdAsNumber = storedVehicleId ? parseInt(storedVehicleId) : NaN;
+    console.log();
+    console.log('vehicleIdAsNumber (HANDLE OPEN MODAL): ', vehicleIdAsNumber);
 
   const handlePaymentChange = (event: SelectChangeEvent<string>) => {
     const { name, value } = event.target;
@@ -75,8 +85,8 @@ const CalcularSaida: React.FC<CalcularSaidaProps> = ({ vehicle, paymentInfo, set
             >
               <MenuItem value="Selecionar">Selecionar</MenuItem>
               <MenuItem value="Pix" color='#ffffff'>Pix</MenuItem>
-              <MenuItem value="Crédito" color='#ffffff'>Cartão de Crédito</MenuItem>
-              <MenuItem value="Débito" color='#ffffff'>Cartão de Débito</MenuItem>
+              <MenuItem value="Cartão de Crédito" color='#ffffff'>Cartão de Crédito</MenuItem>
+              <MenuItem value="Cartão de Débito" color='#ffffff'>Cartão de Débito</MenuItem>
               <MenuItem value="Dinheiro" color='#ffffff'>Dinheiro</MenuItem>
             </Select>
           </FormControl>
