@@ -31,7 +31,6 @@ import Relatorio from "../pages/relatorio";
 
 const isAuthenticated = (): boolean => {
   const token = localStorage.getItem('token');
-  console.log(token)
   if (!token) return false;
 
   try {
