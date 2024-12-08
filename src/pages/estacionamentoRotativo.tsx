@@ -20,8 +20,6 @@ const EstacionamentoRotativo: React.FC = () => {
 
   const  estacionamentoId  = localStorage.getItem('estacionamentoId');
   const estacionamentoIdNumber = estacionamentoId ? parseInt(estacionamentoId) : NaN;
-  // console.log();
-  // console.log('estacionamentoIdNumber: ', estacionamentoIdNumber);
 
   useEffect(() => {
     if (isNaN(estacionamentoIdNumber)) {
@@ -103,8 +101,6 @@ const EstacionamentoRotativo: React.FC = () => {
       const matchingVehicle = fetchedVehicles.find(
         (v) => v.placa === vehicle.plate
       );
-      // console.log();
-      // console.log('matchingVehicle (HANDLE CHECK BOX CHANGE): ', matchingVehicle);
   
       if (matchingVehicle) {
         setSelectedVehicle({
