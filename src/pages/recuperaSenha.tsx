@@ -17,6 +17,7 @@ const PasswordRecovery: React.FC = () => {
   const [code, setCode] = useState<string>("");
   const [novaSenha, setNovaSenha] = useState<string>("");
   const [confirmaSenha, setConfirmaSenha] = useState<string>("");
+  const [codeSent, setCodeSent] = useState<boolean>(false); // Estado para controle da mensagem do código enviado.
 
   // Código gerado ou esperado
   const expectedCode = "123456"; // Simulação de código. Pode vir do backend.
@@ -27,6 +28,18 @@ const PasswordRecovery: React.FC = () => {
 
   const handlePreviousStep = () => {
     setActiveStep((prev) => prev - 1);
+  };
+
+  const handleSendCode = () => {
+    if (email.trim() === "") {
+      toast.error("Por favor, insira um e-mail válido.");
+      return;
+    }
+
+    // Simulação de envio de código. Aqui você pode adicionar a lógica de envio ao backend.
+    setCodeSent(true);
+    toast.success("Código enviado para o seu e-mail!");
+    handleNextStep();
   };
 
   const handleVerifyCode = () => {
@@ -80,7 +93,7 @@ const PasswordRecovery: React.FC = () => {
               variant="contained"
               color="primary"
               fullWidth
-              onClick={handleNextStep}
+              onClick={handleSendCode}
             >
               Enviar código
             </Button>
@@ -89,6 +102,11 @@ const PasswordRecovery: React.FC = () => {
 
         {activeStep === 1 && (
           <Box>
+            {codeSent && (
+              <Typography color="primary" sx={{ marginBottom: 2 }}>
+                Código enviado para o e-mail: {email}.
+              </Typography>
+            )}
             <Typography>Insira o código de recuperação:</Typography>
             <TextField
               fullWidth
