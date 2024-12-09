@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Box, Button, Container, TextField, Table, TableBody, TableCell, TableHead, TableRow, Typography, Checkbox } from "@mui/material";
 import Header from "../shared/components/header";
 import CadastroMensalista from "../shared/components/cadastroMensalista";
-//import ConfirmarExclusao from "./components/ConfirmarExclusao";
-//import EditarMensalista from "./components/EditarMensalista";
+import ConfirmarExclusao from "../shared/components/confirmarExclusao";
+import EditarMensalista from "../shared/components/editarMensalista";
+import { toast } from 'react-toastify';
 
 interface Mensalista {
   cpf: string;
@@ -44,22 +45,24 @@ const App: React.FC = () => {
     if (selectedMensalista) {
       setMensalistaEmEdicao(selectedMensalista);
     } else {
-      alert("Selecione um mensalista para editar.");
+      toast.error("Selecione um mensalista para editar.");
     }
   };
 
   const handleConfirmarEdicao = (mensalistaEditado: Mensalista) => {
     setMensalistas(
       mensalistas.map((m) => (m.cpf === mensalistaEditado.cpf ? mensalistaEditado : m))
+      
     );
     setMensalistaEmEdicao(null);
+    toast.success("Mensalista editado com sucesso!")
   };
 
   const handleExcluirMensalista = () => {
     if (selectedMensalista) {
       setModalExcluirOpen(true);
     } else {
-      alert("Selecione um mensalista para excluir.");
+      toast.error("Selecione um mensalista para excluir.");
     }
   };
 
@@ -68,6 +71,7 @@ const App: React.FC = () => {
       setMensalistas(mensalistas.filter((m) => m.cpf !== selectedMensalista.cpf));
       setModalExcluirOpen(false);
       setSelectedMensalista(null);
+      toast.success("Mensalista excluido com sucesso!")
     }
   };
 
@@ -146,7 +150,7 @@ const App: React.FC = () => {
         />
       )}
 
-      {/*{mensalistaEmEdicao && (
+      {mensalistaEmEdicao && (
         <EditarMensalista
           mensalista={mensalistaEmEdicao}
           onConfirmar={handleConfirmarEdicao}
@@ -154,14 +158,13 @@ const App: React.FC = () => {
         />
       )}
 
-      {modalExcluirOpen && (
+      {modalExcluirOpen &&  selectedMensalista && (
         <ConfirmarExclusao
           mensalista={selectedMensalista}
           onConfirm={handleConfirmarExclusao}
           onCancel={() => setModalExcluirOpen(false)}
         />
-      )}*/}
-    </Box>
+      )}    </Box>
   );
 };
 

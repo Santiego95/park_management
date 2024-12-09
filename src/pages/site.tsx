@@ -55,7 +55,7 @@ const Site: React.FC = () => {
             <Typography gutterBottom pt={10}>
               Simplifique o estacionamento com apenas alguns toques e desfrute de uma experiência mais tranquila e eficiente.
             </Typography>
-            <Button variant="contained" color="primary" component={Link} to="/paginaMensalista">
+            <Button variant="contained" color="primary" component={Link} to="/recuperaSenha">
               Saiba Mais
             </Button>
           </Grid>

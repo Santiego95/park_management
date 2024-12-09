@@ -146,6 +146,7 @@ import { esqueciSenha } from "../services/auth";
 
 // export default PasswordRecovery;
 
+import { toast } from "react-toastify";
 
 const PasswordRecovery: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -154,6 +155,10 @@ const PasswordRecovery: React.FC = () => {
   const [novaSenha, setNovaSenha] = useState<string>("");
   const [confirmaSenha, setConfirmaSenha] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false); // Para gerenciar o estado de carregamento.
+  const [codeSent, setCodeSent] = useState<boolean>(false); // Estado para controle da mensagem do código enviado.
+
+  // Código gerado ou esperado
+  const expectedCode = "123456"; // Simulação de código. Pode vir do backend.
 
   const handleNextStep = async () => {
     if (activeStep === 0) {
@@ -177,12 +182,33 @@ const PasswordRecovery: React.FC = () => {
     setActiveStep((prev) => prev - 1);
   };
 
+  const handleSendCode = () => {
+    if (email.trim() === "") {
+      toast.error("Por favor, insira um e-mail válido.");
+      return;
+    }
+
+    // Simulação de envio de código. Aqui você pode adicionar a lógica de envio ao backend.
+    setCodeSent(true);
+    toast.success("Código enviado para o seu e-mail!");
+    handleNextStep();
+  };
+
+  const handleVerifyCode = () => {
+    if (code === expectedCode) {
+      toast.success("Código correto!");
+      handleNextStep();
+    } else {
+      toast.error("Código inválido. Tente novamente.");
+    }
+  };
+
   const handleSubmitNovaSenha = () => {
     if (novaSenha === confirmaSenha) {
-      alert("Senha alterada com sucesso!");
+      toast.success("Senha alterada com sucesso!");
       // Aqui você pode adicionar a lógica para enviar a nova senha ao backend.
     } else {
-      alert("As senhas não coincidem. Por favor, tente novamente.");
+      toast.error("As senhas não coincidem. Por favor, tente novamente.");
     }
   };
 
@@ -219,7 +245,7 @@ const PasswordRecovery: React.FC = () => {
               variant="contained"
               color="primary"
               fullWidth
-              onClick={handleNextStep}
+              onClick={handleSendCode}
               disabled={loading} // Desativa o botão durante o carregamento
             >
               {loading ? "Enviando..." : "Enviar código"}
@@ -229,6 +255,11 @@ const PasswordRecovery: React.FC = () => {
 
         {activeStep === 1 && (
           <Box>
+            {codeSent && (
+              <Typography color="primary" sx={{ marginBottom: 2 }}>
+                Código enviado para o e-mail: {email}.
+              </Typography>
+            )}
             <Typography>Insira o código de recuperação:</Typography>
             <TextField
               fullWidth
@@ -242,7 +273,7 @@ const PasswordRecovery: React.FC = () => {
               variant="contained"
               color="primary"
               fullWidth
-              onClick={handleNextStep}
+              onClick={handleVerifyCode}
             >
               Verificar código
             </Button>

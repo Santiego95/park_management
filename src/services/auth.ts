@@ -13,6 +13,15 @@ interface EsqueciSenhaResponse {
   email: string;
 }
 
+interface RedefinirSenhaDto {
+  senha: string;
+  code: string;
+}
+
+interface RedefinirSenhaResponse {
+  access_token: string;
+}
+
 const api = axios.create({
   baseURL: 'http://localhost:3000',
 });
@@ -55,6 +64,17 @@ export const esqueciSenha = async (email: string) : Promise<EsqueciSenhaResponse
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || 'Erro no envio de email');
+  }
+};
+
+export const redefinirSenha = async (
+  dto: RedefinirSenhaDto
+): Promise<RedefinirSenhaResponse> => {
+  try {
+    const response = await api.post<RedefinirSenhaResponse>('/auth/redefinir', dto);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || 'Erro ao redefinir a senha.');
   }
 };
   
