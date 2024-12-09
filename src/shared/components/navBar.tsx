@@ -31,7 +31,7 @@ const NavBar: React.FC<NavBarProps> = ({ onAdicionarEstacionamento }) => (
       </Box>
       <Box sx={{ display: 'flex', gap: 2, marginLeft: '40px' }}>
         <Button component={Link} to="/login" variant="contained" color="secondary">Login</Button>
-        <Button component={Link} to="/login" variant="contained" color="secondary">Cadastro</Button>
+        <Button component={Link} to="/cadastro" variant="contained" color="secondary">Cadastro</Button>
       </Box>
       
     </Toolbar>
