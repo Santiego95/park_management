@@ -27,6 +27,8 @@ import Login from "../pages/login";
 import Cadastro from "../pages/cadastro";
 import TelaDono from "../pages/telaDono";
 import Relatorio from "../pages/relatorio";
+import Mensalista from '../pages/paginaMensalistas';
+import Senha from "../pages/recuperaSenha";
 
 
 const isAuthenticated = (): boolean => {
@@ -48,6 +50,8 @@ export const AppRoutes = () => {
       <Route path="/paginaInicial" element={<Site />} />
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
+      <Route path="/paginaMensalista" element={<Mensalista />} />
+      <Route path="/recuperaSenha" element={<Senha />} />
       
       {/* Verifica se o usuário está autenticado antes de renderizar as rotas protegidas */}
       <Route

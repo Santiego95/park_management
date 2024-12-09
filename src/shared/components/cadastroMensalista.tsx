@@ -65,8 +65,8 @@ const CadastroMensalista: React.FC<CadastroMensalistaProps> = ({ onConfirmar, on
   };
 
   return (
-    <Dialog open={true} onClose={onCancelar} PaperProps={{ style: { backgroundColor: theme.palette.primary.main } }}>
-      <DialogTitle style={{ color: "#fff" }}>Cadastro de Mensalista</DialogTitle>
+    <Dialog open={true} onClose={onCancelar} PaperProps={{ style: { backgroundColor: "#f7f7f7f7" } }}>
+      <DialogTitle style={{ color: theme.palette.primary.main }}>Cadastro de Mensalista</DialogTitle>
       <DialogContent>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <TextField

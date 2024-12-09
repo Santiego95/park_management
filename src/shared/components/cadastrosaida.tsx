@@ -81,33 +81,33 @@ const CalcularSaida: React.FC<CalcularSaidaProps> = ({ vehicle, paymentInfo, set
 
   return (
     <>
-      <Dialog open={!!vehicle} onClose={onCancel} PaperProps={{ style: { backgroundColor: theme.palette.primary.main } }}>
-        <DialogTitle style={{ color: '#ffffff' }}>Calcular Saída</DialogTitle>
+      <Dialog open={!!vehicle} onClose={onCancel} PaperProps={{ style: { backgroundColor: '#f7f7f7f7' } }}>
+        <DialogTitle style={{ color: theme.palette.primary.main }}>Calcular Saída</DialogTitle>
         <DialogContent dividers>
           {/* Dados do veículo */}
           <Box display="flex" justifyContent="space-between" mb={2}>
-            <Typography variant="body1" color="#ffffff"><strong>Placa:</strong> {vehicle?.plate}</Typography>
+            <Typography variant="body1" color= {theme.palette.primary.main} ><strong>Placa:</strong> {vehicle?.plate}</Typography>
           </Box>
           <Box display="flex" justifyContent="space-between" mb={2}>
-            <Typography variant="body1" color="#ffffff"><strong>Entrada:</strong> {vehicle?.entry}</Typography>
+            <Typography variant="body1" color= {theme.palette.primary.main}><strong>Entrada:</strong> {vehicle?.entry}</Typography>
           </Box>
           <Box display="flex" justifyContent="space-between" mb={2}>
-            <Typography variant="body1" color="#ffffff"><strong>Saída:</strong> {new Date().toLocaleTimeString()}</Typography>
+            <Typography variant="body1" color= {theme.palette.primary.main}><strong>Saída:</strong> {new Date().toLocaleTimeString()}</Typography>
           </Box>
 
           {/* Forma de pagamento */}
           <FormControl fullWidth>
-            <InputLabel style={{ color: '#ffffff' }}>Forma de Pagamento</InputLabel>
+            <InputLabel style={{ color: theme.palette.primary.main }}>Forma de Pagamento</InputLabel>
             <Select
               value={paymentInfo.method}
               onChange={handlePaymentChange}
               name="method"
               label="Forma de Pagamento"
-              style={{ color: '#ffffff' }}
+              style={{ color: theme.palette.primary.main }}
               MenuProps={{
                 PaperProps: {
                   style: {
-                    backgroundColor: theme.palette.primary.main,
+                    backgroundColor: '#f7f7f7f7',
                   },
                 },
               }}

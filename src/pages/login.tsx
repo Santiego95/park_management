@@ -72,7 +72,7 @@ const Login: React.FC = () => {
             />
 
             <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
-              <Link to="#">Esqueceu a senha?</Link>
+              <Link to="/recuperaSenha">Esqueceu a senha?</Link>
               <FormControlLabel
                 control={<Checkbox color="primary" />}
                 label="Salvar Senha"
