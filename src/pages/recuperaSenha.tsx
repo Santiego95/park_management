@@ -9,6 +9,7 @@ import {
   Step,
   StepLabel,
 } from "@mui/material";
+import { toast } from "react-toastify";
 
 const PasswordRecovery: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -16,6 +17,9 @@ const PasswordRecovery: React.FC = () => {
   const [code, setCode] = useState<string>("");
   const [novaSenha, setNovaSenha] = useState<string>("");
   const [confirmaSenha, setConfirmaSenha] = useState<string>("");
+
+  // Código gerado ou esperado
+  const expectedCode = "123456"; // Simulação de código. Pode vir do backend.
 
   const handleNextStep = () => {
     setActiveStep((prev) => prev + 1);
@@ -25,12 +29,21 @@ const PasswordRecovery: React.FC = () => {
     setActiveStep((prev) => prev - 1);
   };
 
+  const handleVerifyCode = () => {
+    if (code === expectedCode) {
+      toast.success("Código correto!");
+      handleNextStep();
+    } else {
+      toast.error("Código inválido. Tente novamente.");
+    }
+  };
+
   const handleSubmitNovaSenha = () => {
     if (novaSenha === confirmaSenha) {
-      alert("Senha alterada com sucesso!");
+      toast.success("Senha alterada com sucesso!");
       // Aqui você pode adicionar a lógica para enviar a nova senha ao backend.
     } else {
-      alert("As senhas não coincidem. Por favor, tente novamente.");
+      toast.error("As senhas não coincidem. Por favor, tente novamente.");
     }
   };
 
@@ -89,7 +102,7 @@ const PasswordRecovery: React.FC = () => {
               variant="contained"
               color="primary"
               fullWidth
-              onClick={handleNextStep}
+              onClick={handleVerifyCode}
             >
               Verificar código
             </Button>
