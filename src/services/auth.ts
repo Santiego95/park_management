@@ -9,6 +9,10 @@ interface RegisterResponse {
   message: string;
 }
 
+interface EsqueciSenhaResponse {
+  email: string;
+}
+
 const api = axios.create({
   baseURL: 'http://localhost:3000',
 });
@@ -40,6 +44,17 @@ export const register = async (
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || 'Erro no cadastro');
+  }
+};
+
+export const esqueciSenha = async (email: string) : Promise<EsqueciSenhaResponse> => {
+  try {
+    const response = await api.post<EsqueciSenhaResponse>('/auth/esqueci', {
+      email,
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || 'Erro no envio de email');
   }
 };
   
