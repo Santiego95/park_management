@@ -2,6 +2,7 @@
 
 // Definindo o tipo para veículos
 export interface Vehicle {
+    id?: number;
     plate?: string;
     type?: string;
     description?: string;

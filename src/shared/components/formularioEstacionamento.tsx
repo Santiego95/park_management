@@ -38,18 +38,20 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
     }
 
     try {
-      const response = await estacionamento(nome, endereco, vagas, userId);
+      const response = await estacionamento(nome, endereco, vagas, userId, valorHora, valorMaisHoras);
       const novoEstacionamento: Estacionamento = {
         endereco: response.endereco,
         nome: response.estacionamentoNome,
         vagas: response.totalvagas,
+        valorHora: response.valorHora,
+        valorMaisHoras: response.valorMaisHoras,
         confirmado: false, // ou conforme a lógica que você precisa
       };
-      
-      // Chama a função para adicionar o estacionamento à lista
+
+      localStorage.setItem('estacionamentoId', response.id.toString());
+
       onAdicionarEstacionamento(novoEstacionamento);
       
-      // Limpa os campos do formulário
       setEndereco('');
       setNome('');
       setVagas(0);
@@ -90,7 +92,7 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
           label="Primeira Hora"
           type="number"
           value={valorHora}
-          onChange={(e) => setVagas(e.target.value ? parseInt(e.target.value) : NaN)}
+          onChange={(e) => setValorHora(e.target.value ? parseFloat(e.target.value) : 0)}
           InputProps={{
             style: { backgroundColor: '#ffffff', color: '#000000' },
           }}
@@ -102,7 +104,7 @@ const FormularioEstacionamento: React.FC<FormularioEstacionamentoProps> = ({ onA
           label="Demais Horas"
           type="number"
           value={valorMaisHoras}
-          onChange={(e) => setVagas(e.target.value ? parseInt(e.target.value) : NaN)}
+          onChange={(e) => setValorMaisHoras(e.target.value ? parseFloat(e.target.value) : 0)}
           InputProps={{
             style: { backgroundColor: '#ffffff', color: '#000000' },
           }}
