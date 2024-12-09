@@ -6,6 +6,8 @@ import fundoImage from '../shared/img/fundo.jpeg';
 import telaRotativo from '../shared/img/tela-rotativo.png';
 import telaDono from '../shared/img/tela-dono.png';
 import telaCadastroMensalista from '../shared/img/tela-cadastro-mensalista.png';
+import { Link } from "react-router-dom";
+
 
 const Site: React.FC = () => {
   const [mostrarFormularioEstacionamento, setMostrarFormularioEstacionamento] = useState(false);
@@ -53,7 +55,7 @@ const Site: React.FC = () => {
             <Typography gutterBottom pt={10}>
               Simplifique o estacionamento com apenas alguns toques e desfrute de uma experiência mais tranquila e eficiente.
             </Typography>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" component={Link} to="/relatorio">
               Saiba Mais
             </Button>
           </Grid>

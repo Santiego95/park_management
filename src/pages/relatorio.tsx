@@ -30,16 +30,7 @@ const Relatorio: React.FC = () => {
 
   return (
     <div>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Sistema de Estacionamento
-          </Typography>
-          <Button color="inherit" onClick={() => setMostrarFormularioEstacionamento(true)}>
-            Adicionar Estacionamento
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <Header onMenuClick={() => {}} onCloseMenu={() => {}} />
 
       <Container sx={{ marginTop: 4 }}>
         <Box display="flex" justifyContent="space-between" flexWrap="wrap">
