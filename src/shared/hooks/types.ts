@@ -17,6 +17,7 @@ export interface Vehicle {
   
   // Definindo o tipo para um mensalista (adapte conforme necessário)
   export interface Mensalista {
+    id?: number;
     nome?: string;
     cpf?: string;
     placa?: string;

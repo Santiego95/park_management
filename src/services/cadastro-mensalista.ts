@@ -28,6 +28,9 @@ export interface AtualizarMensalistaResponse {
   vagas?: string
 }
 
+export interface BuscarMensalistaPorId {
+  id: number,
+};
 
 export interface BuscarMensalistas {
   estacionamentoId: number,
@@ -102,11 +105,9 @@ export const excluirMensalista = async (
   }
 };
 
-
-
-export const buscarMensalistaPorId = async (id: number): Promise<CriarMensalistaResponse> => {
+export const buscarMensalistaPorId = async (id: number): Promise<BuscarMensalistaPorId> => {
   try {
-    const response = await api.get<CriarMensalistaResponse>(`/mensalistas/${id}`);
+    const response = await api.get<BuscarMensalistaPorId>(`/mensalistas/${id}`);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || 'Erro ao buscar mensalista pelo ID');
