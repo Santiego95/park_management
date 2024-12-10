@@ -13,10 +13,10 @@ import {
 // Tipagem para as propriedades do componente
 interface ConfirmarExclusaoProps {
   mensalista: {
-    nome: string;
-    cpf: string;
-    placa: string;
-    vagas: string;
+    nome?: string;
+    cpf?: string;
+    placa?: string;
+    vagas?: string;
   };
   onConfirm: () => void;
   onCancel: () => void;

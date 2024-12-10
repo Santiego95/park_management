@@ -17,14 +17,15 @@ export interface Vehicle {
   
   // Definindo o tipo para um mensalista (adapte conforme necessário)
   export interface Mensalista {
-    nome: string;
-    cpf: string;
-    placa: string;
-    descricao: string;
-    whatsapp: string;
-    vagas: string;
-    tipo: string;
-    email: string;
+    nome?: string;
+    cpf?: string;
+    placa?: string;
+    descricao?: string;
+    whatsapp?: string;
+    vagas?: string;
+    tipo?: string;
+    email?: string;
+    estacionamentoId?: number;
   }
 
   export interface Estacionamento {

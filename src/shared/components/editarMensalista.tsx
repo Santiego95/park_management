@@ -8,17 +8,18 @@ import {
   DialogActions,
   DialogContent,
 } from "@mui/material";
+import { Mensalista } from "../hooks/types";
 
 // Definição da interface para o Mensalista
-interface Mensalista {
-  nome: string;
-  cpf: string;
-  placa: string;
-  vagas: string;
-  tipo: string;
-  descricao: string;
-  whatsapp: string;
-}
+// interface Mensalista {
+//   nome: string;
+//   cpf: string;
+//   placa: string;
+//   vagas: string;
+//   tipo: string;
+//   descricao: string;
+//   whatsapp: string;
+// }
 
 // Definição da interface para as props do componente
 interface EditarMensalistaProps {

@@ -16,6 +16,10 @@ export interface CriarMensalistaResponse {
   vagas: string
 }
 
+export interface BuscarMensalistas {
+  estacionamentoId: number,
+};
+
 export const cadastrarMensalista = async (
   nome: string,
   email: string,
@@ -42,6 +46,15 @@ export const cadastrarMensalista = async (
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || 'Erro no cadastro de mensalista');
+  }
+};
+
+export const buscarMensalistas = async (estacionamentoId: number): Promise<BuscarMensalistas[]> => {
+  try {
+    const response = await api.get<BuscarMensalistas[]>(`/mensalistas/getall/${estacionamentoId}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || 'Erro ao buscar mensalistas');
   }
 };
 
