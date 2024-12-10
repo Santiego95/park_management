@@ -5,7 +5,7 @@ import CadastroMensalista from "../shared/components/cadastroMensalista";
 import ConfirmarExclusao from "../shared/components/confirmarExclusao";
 import EditarMensalista from "../shared/components/editarMensalista";
 import { toast } from 'react-toastify';
-import { buscarMensalistas } from "../services/cadastro-mensalista";
+import { atualizarMensalista, buscarMensalistaPorId, buscarMensalistas, excluirMensalista } from "../services/cadastro-mensalista";
 import { Mensalista } from "../shared/hooks/types";
 
 // interface Mensalista {
@@ -176,6 +176,8 @@ import { Mensalista } from "../shared/hooks/types";
 
 // export default App;
 
+/*------------------------------- V1*/
+
 const App: React.FC = () => {
   const [mensalistas, setMensalistas] = useState<Mensalista[]>([]); // Inicializa a lista vazia
   const [busca, setBusca] = useState<string>("");
@@ -343,3 +345,6 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+
+/*------------------------------- V2*/
