@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, onCloseMenu }) => {
             },
           }}
         >
-          <MenuItem onClick={handleClose}>Mensalistas</MenuItem>
+          <MenuItem onClick={handleClose} component={Link} to="/paginaMensalista">Mensalistas</MenuItem>
           <MenuItem onClick={handleClose} component={Link} to="/relatorio">Relatórios</MenuItem>
           <MenuItem onClick={handleClose} component={Link} to="/telaDono">Estacionamentos</MenuItem>
           <MenuItem onClick={handleClose} component={Link} to="/paginaInicial">Sair</MenuItem>
